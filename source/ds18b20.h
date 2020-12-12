@@ -6,11 +6,11 @@
 #define uint unsigned int
 
 
-//sbit DQ1 = P2^4;
-//sbit DQ2 = P2^3;
+sbit DQ1 = P2^4;
+sbit DQ2 = P2^3;
 
-sbit DQ1 = P2^0;
-sbit DQ2 = P2^1;
+//sbit DQ1 = P2^0;
+//sbit DQ2 = P2^1;
 
 
 

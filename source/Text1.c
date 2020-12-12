@@ -36,8 +36,8 @@ FACTOR流量计算系数
 	
 /*主模块端口定义*/
 //sbit pwm = P1^7; // 电机实际动作
-sbit pwm = P2^3; // 电机实际动作
-
+sbit pwm = P2^1; // 电机实际动作
+sbit aaa=P2^0;
 sbit led1 = P2^2; // 声光报警
 
 
@@ -74,10 +74,12 @@ dj 不记pwm情况下的电机启动
 
 /*主函数*/
 void main(){
-	pl1=100;//1khz
-	pl=100;
-	zkb=10;//30%
+	pl1=400;//1khz
+	pl=8;
+	zkb=50;//30%
 	zkb1=0;
+	aaa=1;
+	delay(10);
 	zkb2=50;
 	pwmt=0;
 	gaowen=30;
@@ -97,8 +99,8 @@ void main(){
 
  TxStr[0] = byte_read(0x2001);     //从地址0x2001读取一个字节
     TxStr[1] = byte_read(0x2002);     //从地址0x2002读取一个字节
- //diwen=TxStr[0];
-//	gaowen=TxStr[1];
+ diwen=TxStr[0];
+	gaowen=TxStr[1];
 
  
     delay(200);        //延时2s
@@ -132,7 +134,7 @@ void main(){
 
 	}
 		if(wendui>gaowen*10)		   //	  温度高于阈值 报警
-		{	led=1;zkb2=51-((wendui-gaowen*10)*50)/(350-gaowen*10);pl1=51+(((wendui-gaowen*10)*50)/(350-gaowen*10))*10;
+		{	led=1;zkb2=2+(wendui/10-gaowen);
 			}
 		if(wendui<gaowen*10)		   //	  温度低于阈值 停止报警
 		{	led=0;
@@ -203,43 +205,43 @@ void timer0Service() interrupt 1{  // 定时器0中断    秒计时
 
 
 
-	TH0 = 0xfc;
-	TL0 = 0x00;
+	TH0 = (65535 - 900) / 256;
+	TL0 = (65535 - 900) % 256;
 	iiii++;
 	if(w35==0){
 		
-	if(zkb1>=zkb2)
+	if(zkb1>=900)
 	{bz=1;
 
 	}
 
-	if(zkb1<=1)
+	if(zkb1<=200)
 	{bz=0;
 	}
 
 	if(iiii>=pl)
 	{iiii=0;
 
-	if(bz==1)zkb1--;
-	if(bz==0)zkb1++;
+	if(bz==1)zkb1=zkb1-zkb2;
+	if(bz==0)zkb1=zkb1+zkb2;
 	 
 	 
 	}
    
 	
 
-	if((zkb2*iiii/pl)>zkb1)
-	{	led1=1;
+	if(iiii>zkb1/100)
+	{	led1=0;
 	}
-	if((zkb2*iiii/pl)<zkb1)
-	{led1=0;
+	if(iiii<zkb1/100)
+	{led1=1;
 	 }
  }
 	if(w35==1)
-	{if(iiii>800)
+	{if(iiii>450)
 		iiii=0;
-		if(iiii<0.5*800)led1=0;
-		if(iiii>0.5*800)led1=1;
+		if(iiii<0.5*450)led1=0;
+		if(iiii>0.5*450)led1=1;
 	}
 
 
@@ -254,15 +256,15 @@ void timer2Service() interrupt 5{  // pwm调速
 	TF2=0;
 	pwmt++;
 	
-if(pwmt>=pl) //1khz
+if(pwmt>=pl1) //1khz
  
 pwmt=0;
  
-if(pwmt<=zkb) //占空比%30,可改
+if(pwmt<=zkb*4) //占空比%30,可改
  
 pwm=0;
  
-if(pwmt>zkb) pwm=1;
+if(pwmt>zkb*4) pwm=1;
  
 
 

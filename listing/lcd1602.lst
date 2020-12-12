@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.0.0   LCD1602                                                           12/12/2020 01:20:02 PAGE 1   
+C51 COMPILER V9.60.0.0   LCD1602                                                           12/13/2020 01:17:49 PAGE 1   
 
 
 C51 COMPILER V9.60.0.0, COMPILATION OF MODULE LCD1602
@@ -62,7 +62,7 @@ line level    source
   52   1        dis[0] = h % 1000 / 100;
   53   1        dis[1] = h % 100 / 10;
   54   1        dis[2] = h % 10;
-C51 COMPILER V9.60.0.0   LCD1602                                                           12/12/2020 01:20:02 PAGE 2   
+C51 COMPILER V9.60.0.0   LCD1602                                                           12/13/2020 01:17:49 PAGE 2   
 
   55   1        for(i = 0; i < 3; i++){
   56   2          writeCommand(0x80 + 0x40 + 6 + i);
@@ -126,7 +126,7 @@ MODULE INFORMATION:   STATIC OVERLAYABLE
    DATA SIZE        =      4      16
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
-C51 COMPILER V9.60.0.0   LCD1602                                                           12/12/2020 01:20:02 PAGE 3   
+C51 COMPILER V9.60.0.0   LCD1602                                                           12/13/2020 01:17:49 PAGE 3   
 
 END OF MODULE INFORMATION.
 

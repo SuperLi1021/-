@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.0.0   LANYA                                                             12/12/2020 01:20:02 PAGE 1   
+C51 COMPILER V9.60.0.0   LANYA                                                             12/13/2020 01:17:48 PAGE 1   
 
 
 C51 COMPILER V9.60.0.0, COMPILATION OF MODULE LANYA
@@ -62,7 +62,7 @@ line level    source
   52   1      }
   53          void uart_send_2()
   54          {
-C51 COMPILER V9.60.0.0   LANYA                                                             12/12/2020 01:20:02 PAGE 2   
+C51 COMPILER V9.60.0.0   LANYA                                                             12/13/2020 01:17:48 PAGE 2   
 
   55   1                      TI = 1;//发送请求标志位
   56   1                      puts("内");//发送的汉字
@@ -126,7 +126,7 @@ line level    source
  114   2          ii++;
  115   2          if(ii==2)
  116   2          {   ii=0;
-C51 COMPILER V9.60.0.0   LANYA                                                             12/12/2020 01:20:02 PAGE 3   
+C51 COMPILER V9.60.0.0   LANYA                                                             12/13/2020 01:17:48 PAGE 3   
 
  117   3             uart_send_int(a);
  118   3      
