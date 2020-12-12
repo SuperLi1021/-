@@ -1,0 +1,189 @@
+C51 COMPILER V9.60.0.0   LANYA                                                             12/12/2020 01:20:02 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE LANYA
+OBJECT MODULE PLACED IN ..\output\lanya.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ..\source\lanya.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(..\l
+                    -isting\lanya.lst) TABS(2) OBJECT(..\output\lanya.obj)
+
+line level    source
+
+   1          
+   2          #include <reg52.h>
+   3          #include "lanya.h"
+   4          #include <stdio.h>
+   5          #include "delay.h"
+   6          
+   7          uint db=0;
+   8          uchar lb,mb,hb,a;
+   9          uchar ii=0;
+  10          uchar zifu[]={0x30,0x31,0x32,0x33,0x34,0x35,0x36,0x37,0x38,0x39};
+  11          
+  12          
+  13          /*timer初始化函数*/
+  14          void timerInit(){
+  15   1      
+  16   1        SCON = 0x50;
+  17   1        TMOD = 0x21;           // 同时使用两个定时器
+  18   1        CP_RL2=0;//定时器2   16位自动重装
+  19   1        EXEN2=0;
+  20   1        TH2 = RCAP2H= 0xFF;            // 置初值 ff
+  21   1        TL2 = RCAP2L= 0x07;             //a7
+  22   1        TH1 = 0xFD;               // TH1:  初始值为0xFD  波特率：9600 晶振频率：11.0592MHz  
+  23   1        TL1 = 0x00;
+  24   1        TH0 = 0x4c;
+  25   1        TL0 = 0x00;
+  26   1        ET2 = 1;
+  27   1        ET0 = 1;            // 开timer0溢出中断
+  28   1        TR1 = 1;                  // TR1:  开启定时器1                         
+  29   1        EA  = 1;                  //打开总中断
+  30   1        EX0=1;  
+  31   1        IT0=1;
+  32   1        ES  = 1;                  //打开串口中断
+  33   1      
+  34   1        
+  35   1        }
+  36          
+  37          
+  38          void uart_send_byte(unsigned char dat)
+  39          {
+  40   1        SBUF = dat; // 将数据送到发送缓冲寄存器SBUF，一位一位的发送
+  41   1        while(!TI); // 等待发送完毕 (发送完毕TI硬件置1)
+  42   1        TI = 0;// 将TI清零，表示可以发送下一字节数据。
+  43   1      }
+  44          // 串口中断处理函数 （串口接收到数据，发送数据完毕都可以引起串口中断）
+  45          void uart_send_1()
+  46          {
+  47   1                      TI = 1;//发送请求标志位
+  48   1                      puts("外");//发送的汉字
+  49   1                      while(!TI);//判断是否发送完成  发送完成出循环
+  50   1                      TI = 0;
+  51   1                      delay(10);//延迟1秒
+  52   1      }
+  53          void uart_send_2()
+  54          {
+C51 COMPILER V9.60.0.0   LANYA                                                             12/12/2020 01:20:02 PAGE 2   
+
+  55   1                      TI = 1;//发送请求标志位
+  56   1                      puts("内");//发送的汉字
+  57   1                      while(!TI);//判断是否发送完成  发送完成出循环
+  58   1                      TI = 0;
+  59   1                      delay(10);//延迟1秒
+  60   1      }void uart_send_3()
+  61          {
+  62   1                      TI = 1;//发送请求标志位
+  63   1                      puts("高");//发送的汉字
+  64   1                      while(!TI);//判断是否发送完成  发送完成出循环
+  65   1                      TI = 0;
+  66   1                      delay(10);//延迟1秒
+  67   1      }void uart_send_4()
+  68          {
+  69   1                      TI = 1;//发送请求标志位
+  70   1                      puts("低");//发送的汉字
+  71   1                      while(!TI);//判断是否发送完成  发送完成出循环
+  72   1                      TI = 0;
+  73   1                      delay(10);//延迟1秒
+  74   1      }void uart_send_5()
+  75          {
+  76   1                      TI = 1;//发送请求标志位
+  77   1                      puts("占");//发送的汉字
+  78   1                      while(!TI);//判断是否发送完成  发送完成出循环
+  79   1                      TI = 0;
+  80   1                      delay(10);//延迟1秒
+  81   1      }
+  82          void uart_send_int(unsigned int s)
+  83          {
+  84   1        
+  85   1        uchar dis[4];
+  86   1      
+  87   1        dis[0] = (s % 1000 / 100)+48;
+  88   1        dis[1] = (s % 100 / 10)+48;
+  89   1        dis[2] = (s % 10)+48;
+  90   1        dis[3] = 10;
+  91   1      
+  92   1          uart_send_byte(dis[0]);// 发送1个字节数据，1个字符占8位，1字节
+  93   1          uart_send_byte(dis[1]);// 发送1个字节数据，1个字符占8位，1字节
+  94   1          uart_send_byte(dis[2]);// 发送1个字节数据，1个字符占8位，1字节
+  95   1          uart_send_byte(dis[3]);// 发送1个字节数据，1个字符占8位，1字节
+  96   1        
+  97   1      }
+  98          
+  99          
+ 100          void uart_interrupt(void) interrupt 4     //也叫串行中断服务程序
+ 101          { 
+ 102   1        uint shuju;
+ 103   1        
+ 104   1      
+ 105   1        unsigned char recv_data1[2];// 用来存放接收到的数据
+ 106   1        unsigned char recv_data[4]; 
+ 107   1        a=0;
+ 108   1        if(RI) //接收数据(1字节)完毕，RI会被硬件置1
+ 109   1        { 
+ 110   2          RI = 0;               // 将 接收中断标志位 清零(让串口可以继续接收数据)
+ 111   2          
+ 112   2          recv_data1[ii] = SBUF;            //读取接收到的数据，并存放到data
+ 113   2      
+ 114   2          ii++;
+ 115   2          if(ii==2)
+ 116   2          {   ii=0;
+C51 COMPILER V9.60.0.0   LANYA                                                             12/12/2020 01:20:02 PAGE 3   
+
+ 117   3             uart_send_int(a);
+ 118   3      
+ 119   3       uart_send_1();
+ 120   3      
+ 121   3            uart_send_int(wenduo); //收到数据之后，发送字符串"I received."给对方
+ 122   3      uart_send_2();
+ 123   3            uart_send_int(wendui); //收到数据之后，发送字符串"I received."给对方
+ 124   3       uart_send_3();
+ 125   3      
+ 126   3            uart_send_int(gaowen); //收到数据之后，发送字符串"I received."给对方
+ 127   3       uart_send_4();
+ 128   3      
+ 129   3            uart_send_int(diwen); //收到数据之后，发送字符串"I received."给对方
+ 130   3       uart_send_5();
+ 131   3      
+ 132   3            uart_send_int(zkb); //收到数据之后，发送字符串"I received."给对方
+ 133   3            
+ 134   3      
+ 135   3      
+ 136   3      
+ 137   3        
+ 138   3          }
+ 139   2        }
+ 140   1        if(TI)// 发送数据(1字节)完毕
+ 141   1        {
+ 142   2          TI = 0;// 将 发送中断标志位 清零(让串口可以继续发送数据)
+ 143   2        }
+ 144   1        recv_data[0]=recv_data1[0]/0x10;
+ 145   1        recv_data[1]=recv_data1[0]%0x10;
+ 146   1        recv_data[2]=recv_data1[1]/0x10;
+ 147   1        recv_data[3]=recv_data1[1]%0x10;
+ 148   1        shuju=recv_data[1]*100+recv_data[2]*10+recv_data[3];
+ 149   1        if(recv_data[0]==10) gaowen=shuju;
+ 150   1        if(recv_data[0]==11) diwen=shuju;
+ 151   1        if(recv_data[0]==12) zkb=shuju;
+ 152   1        if(recv_data[0]==13) pl=shuju;
+ 153   1        if(recv_data[0]==14)  djb=1;
+ 154   1        if(recv_data[0]==15) djb=0;
+ 155   1      
+ 156   1      
+ 157   1        
+ 158   1      
+ 159   1      
+ 160   1      } 
+ 161          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    518    ----
+   CONSTANT SIZE    =     15    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     17      10
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,321 @@
+C51 COMPILER V9.60.0.0   TEXT1                                                             12/12/2020 01:20:01 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE TEXT1
+OBJECT MODULE PLACED IN ..\output\Text1.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ..\source\Text1.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(..\l
+                    -isting\Text1.lst) TABS(2) OBJECT(..\output\Text1.obj)
+
+line level    source
+
+   1          //显示 室外温度 室内温度 温度阈值 占空比
+   2          //蓝牙发送 室外温度 室内温度 温度阈值 占空比
+   3          //蓝牙接收 阈值 占空比
+   4          //按键 1选择 2加 3减
+   5          //定时器1 9600波特率 定时器2 pwm
+   6          //定时器0 
+   7          
+   8          
+   9          
+  10          #include "eeprom.h"
+  11          #include <reg52.h>
+  12          #include <string.h>
+  13          #include <intrins.h>
+  14          #include "lcd1602.h"
+  15          #include "anjian.h"
+  16          #include "delay.h"
+  17          #include "lanya.h"
+  18          //#include "temp.h"
+  19          //#include "temp 1.h"
+  20          #include "ds18b20.h"
+  21          #define uchar unsigned char
+  22          #define uint unsigned int
+  23          #define FOSC 11.0592 // 系统晶振频率11.0592MHz
+  24          
+  25          /*distance   表示此次加药剂量
+  26          m时间间隔
+  27          l模式
+  28          h次数
+  29          zkb占空比
+  30          pl 频率
+  31          FACTOR流量计算系数
+  32          */
+  33          
+  34          
+  35          
+  36            
+  37          /*主模块端口定义*/
+  38          //sbit pwm = P1^7; // 电机实际动作
+  39          sbit pwm = P2^3; // 电机实际动作
+  40          
+  41          sbit led1 = P2^2; // 声光报警
+  42          
+  43          
+  44          
+  45          
+  46          
+  47          /*主模块函数声明*/
+  48          
+  49          static uint iiii=0;/*定义全局变量*/ 
+  50          uchar TxStr[3] = {0};
+  51          uint wenduo = 0; // 温度
+  52          uint wendui = 0; // 温度
+  53          unsigned int sw,d,ll,pl,pl1,pwmt,led,yunxing; 
+  54          uchar djb,gaowen,diwen,zkb,zkb2,dj,zkbb,djbb;
+C51 COMPILER V9.60.0.0   TEXT1                                                             12/12/2020 01:20:01 PAGE 2   
+
+  55          uint zkb1;//led 呼吸灯占空比
+  56          uint bz;//回头标志
+  57          uint w35;//温度是否高于35度
+  58          /*distance   表示此次加药剂量
+  59          m时间间隔
+  60          l模式
+  61          h次数
+  62          zkb占空比
+  63          pl 频率
+  64          shijian 单片机运行实际时间
+  65          dj 不记pwm情况下的电机启动
+  66          外部中断0 跳沿触发 计算圈数
+  67          定时器0  计时
+  68          定时器1 产生波特率
+  69          定时器2 pwm调速
+  70          实际流量=圈数*流量计算系数
+  71          
+  72          */
+  73          
+  74          
+  75          /*主函数*/
+  76          void main(){
+  77   1        pl1=100;//1khz
+  78   1        pl=100;
+  79   1        zkb=10;//30%
+  80   1        zkb1=0;
+  81   1        zkb2=50;
+  82   1        pwmt=0;
+  83   1        gaowen=30;
+  84   1        diwen=15;
+  85   1        sw=0;
+  86   1        dj=1;
+  87   1        djb=0;
+  88   1        djbb=0;
+  89   1        zkbb=0;
+  90   1        yunxing=1;
+  91   1        LCDInit();
+  92   1        timerInit();
+  93   1      
+  94   1      /*eeprom  */
+  95   1      
+  96   1      
+  97   1      
+  98   1       TxStr[0] = byte_read(0x2001);     //从地址0x2001读取一个字节
+  99   1          TxStr[1] = byte_read(0x2002);     //从地址0x2002读取一个字节
+ 100   1       //diwen=TxStr[0];
+ 101   1      //  gaowen=TxStr[1];
+ 102   1      
+ 103   1       
+ 104   1          delay(200);        //延时2s
+ 105   1      
+ 106   1          while(1)
+ 107   1          {   /*  EA=0;
+ 108   2                wenduo= Ds18b20ReadTemp()-100 ;
+ 109   2      
+ 110   2                wendui= Ds18b20ReadTemp1()-100 ;
+ 111   2            
+ 112   2        
+ 113   2                EA=1;*/
+ 114   2                wenduo= temper_change1()/10;
+ 115   2      
+ 116   2                wendui= temper_change2()/10;
+C51 COMPILER V9.60.0.0   TEXT1                                                             12/12/2020 01:20:01 PAGE 3   
+
+ 117   2      
+ 118   2        if(yunxing==1)  //程序允许运行
+ 119   2        { if(zkbb==0&&djbb==0)
+ 120   3          {if(wendui>diwen*10)    //室内温度大于低温阈值
+ 121   4          { if(wendui>wenduo) //室内温度大于室外温度
+ 122   5            { dj=1;       //电机标志启动
+ 123   6              zkb=(wendui-diwen*10)/3;
+ 124   6              if(zkb>=90) zkb=90;
+ 125   6             }
+ 126   5      
+ 127   5          }
+ 128   4        
+ 129   4          if(wendui<wenduo)      //室内温度低于室外温度
+ 130   4          {dj=0;             //关电机
+ 131   5          }
+ 132   4      
+ 133   4        }
+ 134   3          if(wendui>gaowen*10)       //   温度高于阈值 报警
+ 135   3          { led=1;zkb2=51-((wendui-gaowen*10)*50)/(350-gaowen*10);pl1=51+(((wendui-gaowen*10)*50)/(350-gaowen*10))
+             -*10;
+ 136   4            }
+ 137   3          if(wendui<gaowen*10)       //   温度低于阈值 停止报警
+ 138   3          { led=0;
+ 139   4            }
+ 140   3          if(wendui>350)       //   温度>35 标志
+ 141   3          { w35=1;
+ 142   4            }
+ 143   3          if(wendui<350)       //   温度<35 标志
+ 144   3          { w35=0;
+ 145   4            }
+ 146   3          
+ 147   3          
+ 148   3      
+ 149   3      
+ 150   3        }
+ 151   2        display(wenduo,wendui,diwen,gaowen,zkb,sw);   // 室外温度 室内温度 低温阈值 高温阈值 电机占空比
+ 152   2           anjian();
+ 153   2      
+ 154   2          
+ 155   2        
+ 156   2      
+ 157   2      
+ 158   2      
+ 159   2      
+ 160   2      
+ 161   2          if(dj==1)
+ 162   2            TR2=1;
+ 163   2          if(dj==0) 
+ 164   2            {TR2=0;
+ 165   3             pwm=1;
+ 166   3             }
+ 167   2            if(djb==1)
+ 168   2            {
+ 169   3                dj=1;
+ 170   3                delay(50);
+ 171   3            }
+ 172   2            if(djb==0)
+ 173   2            {
+ 174   3                dj=0;
+ 175   3                delay(10);
+ 176   3            }
+ 177   2          
+C51 COMPILER V9.60.0.0   TEXT1                                                             12/12/2020 01:20:01 PAGE 4   
+
+ 178   2          if(led==1)
+ 179   2          {  TR0=1 ;
+ 180   3            }
+ 181   2          if(led==0)
+ 182   2          {  TR0=0;
+ 183   3            led1=0;
+ 184   3            }
+ 185   2      if(diwen!=TxStr[0]||gaowen!=TxStr[1])
+ 186   2        {
+ 187   3          SectorErase(0x2000);    //擦除第一扇区
+ 188   3         byte_write(0x2001,diwen);   //在地址为0x2001的内存写入一个字节
+ 189   3          byte_write(0x2002,gaowen);   //在地址为0x2002的内存写入一个字节
+ 190   3          delay(200);       //延时1s
+ 191   3        }
+ 192   2      
+ 193   2      
+ 194   2      
+ 195   2      }
+ 196   1      }
+ 197          
+ 198          
+ 199          
+ 200          
+ 201          void timer0Service() interrupt 1{  // 定时器0中断    秒计时
+ 202   1        
+ 203   1      
+ 204   1      
+ 205   1      
+ 206   1        TH0 = 0xfc;
+ 207   1        TL0 = 0x00;
+ 208   1        iiii++;
+ 209   1        if(w35==0){
+ 210   2          
+ 211   2        if(zkb1>=zkb2)
+ 212   2        {bz=1;
+ 213   3      
+ 214   3        }
+ 215   2      
+ 216   2        if(zkb1<=1)
+ 217   2        {bz=0;
+ 218   3        }
+ 219   2      
+ 220   2        if(iiii>=pl)
+ 221   2        {iiii=0;
+ 222   3      
+ 223   3        if(bz==1)zkb1--;
+ 224   3        if(bz==0)zkb1++;
+ 225   3         
+ 226   3         
+ 227   3        }
+ 228   2         
+ 229   2        
+ 230   2      
+ 231   2        if((zkb2*iiii/pl)>zkb1)
+ 232   2        { led1=1;
+ 233   3        }
+ 234   2        if((zkb2*iiii/pl)<zkb1)
+ 235   2        {led1=0;
+ 236   3         }
+ 237   2       }
+ 238   1        if(w35==1)
+ 239   1        {if(iiii>800)
+C51 COMPILER V9.60.0.0   TEXT1                                                             12/12/2020 01:20:01 PAGE 5   
+
+ 240   2          iiii=0;
+ 241   2          if(iiii<0.5*800)led1=0;
+ 242   2          if(iiii>0.5*800)led1=1;
+ 243   2        }
+ 244   1      
+ 245   1      
+ 246   1      }
+ 247          
+ 248          
+ 249          
+ 250          
+ 251          /*timer2溢出中断服务程序*/
+ 252          void timer2Service() interrupt 5{  // pwm调速
+ 253   1      
+ 254   1        TF2=0;
+ 255   1        pwmt++;
+ 256   1        
+ 257   1      if(pwmt>=pl) //1khz
+ 258   1       
+ 259   1      pwmt=0;
+ 260   1       
+ 261   1      if(pwmt<=zkb) //占空比%30,可改
+ 262   1       
+ 263   1      pwm=0;
+ 264   1       
+ 265   1      if(pwmt>zkb) pwm=1;
+ 266   1       
+ 267   1      
+ 268   1      
+ 269   1      }
+ 270          
+ 271          
+ 272          /*pwmt pwm调速中的时间
+ 273          zkb   占空比
+ 274          pl 频率
+ 275          pwm 电机实际输出
+ 276          TF2 定时器2 溢出重置
+ 277          */
+ 278          
+ 279          
+ 280          /*模式 ：5 / 10 / 15
+ 281          加药速度：
+ 282          计量
+ 283          加料时间
+ 284          次数
+ 285          */
+ 286          
+ 287          
+ 288          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    837    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     39    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

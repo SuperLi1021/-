@@ -1,0 +1,9 @@
+"..\output\Text1.obj",
+"..\output\anjian.obj",
+"..\output\delay.obj",
+"..\output\lanya.obj",
+"..\output\lcd1602.obj",
+"..\output\EEPROM.obj",
+"..\output\ds18b20.obj" 
+TO "..\output\B" 
+PRINT("..\listing\B.m51") RAMSIZE(256) 

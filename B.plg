@@ -1,0 +1,81 @@
+<html>
+<body>
+<pre>
+<h1>礦ision Build Log</h1>
+<h2>Project:</h2>
+C:\Users\28388\Desktop\善建通达\project\B.uvproj
+Project File Date:  12/04/2020
+
+<h2>Output:</h2>
+Build target '室内外温控风扇'
+assembling STARTUP.A51...
+compiling main.c...
+compiling Bluetooth.c...
+compiling display.c...
+compiling ds18b20.c...
+compiling anjian.c...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  ?B_SWITCH0
+    MODULE:  ..\STARTUP.obj (?C_STARTUP)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ?B_SWITCH0
+    MODULE:  ..\STARTUP.obj (?C_STARTUP)
+    ADDRESS: 000DH
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  MAIN
+    MODULE:  C:\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  MAIN
+    MODULE:  C:\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+    ADDRESS: 0013H
+creating hex file from "..\B"...
+"..\B" - 0 Error(s), 4 Warning(s).
+Build target '室内外温控风扇'
+assembling STARTUP.A51...
+compiling main.c...
+compiling Bluetooth.c...
+compiling display.c...
+compiling ds18b20.c...
+compiling anjian.c...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  ?B_SWITCH0
+    MODULE:  ..\STARTUP.obj (?C_STARTUP)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ?B_SWITCH0
+    MODULE:  ..\STARTUP.obj (?C_STARTUP)
+    ADDRESS: 000DH
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  MAIN
+    MODULE:  C:\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  MAIN
+    MODULE:  C:\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+    ADDRESS: 0013H
+creating hex file from "..\B"...
+"..\B" - 0 Error(s), 4 Warning(s).
+Build target '室内外温控风扇'
+assembling STARTUP.A51...
+compiling main.c...
+compiling Bluetooth.c...
+compiling display.c...
+compiling ds18b20.c...
+compiling anjian.c...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  ?B_SWITCH0
+    MODULE:  ..\output\STARTUP.obj (?C_STARTUP)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ?B_SWITCH0
+    MODULE:  ..\output\STARTUP.obj (?C_STARTUP)
+    ADDRESS: 000DH
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  MAIN
+    MODULE:  C:\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  MAIN
+    MODULE:  C:\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+    ADDRESS: 0013H
+creating hex file from "..\output\B"...
+"..\output\B" - 0 Error(s), 4 Warning(s).

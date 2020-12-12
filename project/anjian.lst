@@ -1,0 +1,24 @@
+C51 COMPILER V6.12  ANJIAN                                                                 12/03/2020 12:26:17 PAGE 1   
+
+
+C51 COMPILER V6.12, COMPILATION OF MODULE ANJIAN
+OBJECT MODULE PLACED IN .\anjian.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE ..\source\anjian.c BROWSE DEBUG OBJECTEXTEND PRINT(.\anjian.lst) OBJECT(.\a
+                    -njian.obj) 
+
+stmt level    source
+
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   ----    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
