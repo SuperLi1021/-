@@ -1,0 +1,2 @@
+Change Component Footprint: Designator=E1 Old Footprint=CAP_6 New Footprint=CAP_2
+Added Pin To Net: NetName=VCC Pin=SW1-4

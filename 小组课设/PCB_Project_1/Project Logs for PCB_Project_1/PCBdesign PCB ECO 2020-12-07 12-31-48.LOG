@@ -1,0 +1,60 @@
+Removed Pin From Net: NetName=GND Pin=C5-1
+Removed Pin From Net: NetName=VCC Pin=C5-2
+Removed Pin From Net: NetName=GND Pin=P11-1
+Removed Pin From Net: NetName=NetD1_1 Pin=P11-2
+Removed Pin From Net: NetName=GND Pin=Q1-2
+Removed Pin From Net: NetName=GND Pin=Q2-2
+Removed Pin From Net: NetName=VCC Pin=Q13-3
+Removed Pin From Net: NetName=VCC Pin=Q14-3
+Removed Pin From Net: NetName=GND Pin=RP1-2
+Removed Pin From Net: NetName=VCC Pin=SW1-1
+Change Component Footprint: Designator=C3 Old Footprint=RAD-0.3 New Footprint=RAD0.1
+Change Component Footprint: Designator=C4 Old Footprint=RAD-0.3 New Footprint=RAD0.1
+Change Component Footprint: Designator=C5 Old Footprint=RAD-0.3 New Footprint=RAD0.1
+Change Component Footprint: Designator=Q1 Old Footprint=SOT-23 New Footprint=TO-92
+Change Component Footprint: Designator=Q2 Old Footprint=SOT-23 New Footprint=TO-92
+Change Component Footprint: Designator=Q15 Old Footprint=SOT-23 New Footprint=TO-92
+Change Component Footprint: Designator=Q16 Old Footprint=SOT-23 New Footprint=TO-92
+Change Component Comment : Designator=C3 Old Comment=Cap New Comment=100pF
+Change Component Comment : Designator=C4 Old Comment=Cap New Comment=104
+Change Component Comment : Designator=C5 Old Comment=Cap New Comment=104
+Change Component Comment : Designator=Q1 Old Comment=S8050 New Comment=NPN_2
+Change Component Comment : Designator=Q2 Old Comment=S8050 New Comment=NPN_2
+Change component parameters: Designator = "D9"; Footprint = "DIODE_SOP"; UniqueID = "\XYKPLTFI"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "PCB DECAL"; Value = "DIODE_SOP"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "VALUE"; Value = "IN4148"; VariantName = "[No Variations]"
+Change component parameters: Designator = "D10"; Footprint = "DIODE_SOP"; UniqueID = "\BLEMXJXV"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "PCB DECAL"; Value = "DIODE_SOP"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "VALUE"; Value = "IN4148"; VariantName = "[No Variations]"
+Change component parameters: Designator = "D12"; Footprint = "DIODE_SOP"; UniqueID = "\UIVLNTYS"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "PCB DECAL"; Value = "DIODE_SOP"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "VALUE"; Value = "IN4148"; VariantName = "[No Variations]"
+Added Component: Designator=Q3(TO-92)
+Add component. Clean all parameters for all variants
+Added Component: Designator=Q4(TO-92)
+Add component. Clean all parameters for all variants
+Added Pin To Net: NetName=VCC Pin=C5-1
+Added Pin To Net: NetName=GND Pin=C5-2
+Added Pin To Net: NetName=NetQ1_C Pin=Q15-2
+Added Pin To Net: NetName=NetQ2_C Pin=Q16-2
+Added Pin To Net: NetName=NetQ1_C Pin=R28-1
+Added Pin To Net: NetName=NetQ2_C Pin=R29-1
+Added Pin To Net: NetName=NetQ2_B Pin=R30-2
+Added Pin To Net: NetName=NetQ1_B Pin=R31-2
+Added Pin To Net: NetName=NetD9_1 Pin=D9-1
+Added Pin To Net: NetName=NetD9_1 Pin=D12-2
+Added Pin To Net: NetName=NetD9_1 Pin=M1-1
+Added Pin To Net: NetName=NetD9_1 Pin=Q15-1
+Added Net: Name=NetD9_1
+Added Pin To Net: NetName=NetD10_1 Pin=D10-1
+Added Pin To Net: NetName=NetD10_1 Pin=D13-2
+Added Pin To Net: NetName=NetD10_1 Pin=M1-2
+Added Pin To Net: NetName=NetD10_1 Pin=Q16-1
+Added Net: Name=NetD10_1
+Added Member To Class: ClassName=coursedesign Member=Component D13 IN4148
+Added Member To Class: ClassName=coursedesign Member=Component Q3 NPN_2
+Added Member To Class: ClassName=coursedesign Member=Component Q4 NPN_2
+Added Room: Name=coursedesign

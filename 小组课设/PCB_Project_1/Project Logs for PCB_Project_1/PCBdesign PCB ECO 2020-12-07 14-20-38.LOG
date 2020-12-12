@@ -1,0 +1,2 @@
+Removed Pin From Net: NetName=VCC Pin=SW1-1
+Change Component Footprint: Designator=E2 Old Footprint=CAPR5-4X5 New Footprint=CAP_2

@@ -1,0 +1,13 @@
+Change Component Footprint: Designator=C3 Old Footprint=C 0805_L New Footprint=RAD-0.3
+Change Component Footprint: Designator=C4 Old Footprint=C 0805_L New Footprint=RAD-0.3
+Change Component Footprint: Designator=C5 Old Footprint=C 0805_L New Footprint=RAD-0.3
+Change Component Footprint: Designator=R6 Old Footprint=R 0603_L New Footprint=RS 1/4W
+Change Component Comment : Designator=C3 Old Comment=104 New Comment=Cap
+Change Component Comment : Designator=C4 Old Comment=104 New Comment=Cap
+Change Component Comment : Designator=C5 Old Comment=104 New Comment=Cap
+Change component parameters: Designator = "R6"; Footprint = "RS 1/4W"; UniqueID = "\ADICLNKX"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "BOM名称"; Value = "色环电阻"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "学习资源"; Value = "www.ooocke.com"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "版权归属"; Value = "源创客"; VariantName = "[No Variations]"
+Added Room: Name=coursedesign

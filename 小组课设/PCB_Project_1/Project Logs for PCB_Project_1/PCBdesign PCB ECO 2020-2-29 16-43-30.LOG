@@ -1,0 +1,6 @@
+Added Component: Designator=usb(USB-Micro)
+Add component. Clean all parameters for all variants
+Added Pin To Net: NetName=NetD1_1 Pin=usb-1
+Added Pin To Net: NetName=GND Pin=usb-5
+Added Member To Class: ClassName=coursedesign Member=Component usb USB-Micro
+Added Room: Name=coursedesign

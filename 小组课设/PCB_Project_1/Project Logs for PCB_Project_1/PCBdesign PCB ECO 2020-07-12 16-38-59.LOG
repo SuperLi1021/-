@@ -1,0 +1,57 @@
+Removed Member From Class: ClassName=coursedesign Member=R5
+Change Component Comment : Designator=P1 Old Comment=Header 4 New Comment=HC-05
+Change component parameters: Designator = "C3"; Footprint = "C 0805_L"; UniqueID = "\APQOWWYU"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "BOM名称"; Value = "无极性贴片电容"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "学习资源"; Value = "www.ooocke.com"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "版权归属"; Value = "源创客"; VariantName = "[No Variations]"
+Change component parameters: Designator = "C4"; Footprint = "C 0805_L"; UniqueID = "\QESFDTNP"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "BOM名称"; Value = "无极性贴片电容"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "学习资源"; Value = "www.ooocke.com"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "版权归属"; Value = "源创客"; VariantName = "[No Variations]"
+Change component parameters: Designator = "C5"; Footprint = "C 0805_L"; UniqueID = "\MVEUOFFO"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "BOM名称"; Value = "无极性贴片电容"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "学习资源"; Value = "www.ooocke.com"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "版权归属"; Value = "源创客"; VariantName = "[No Variations]"
+Change component parameters: Designator = "D1"; Footprint = "DO-41"; UniqueID = "\LBOLWLUP"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "BOM名称"; Value = "整流二极管"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "学习资源"; Value = "www.ooocke.com"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "版权归属"; Value = "源创客"; VariantName = "[No Variations]"
+Change component parameters: Designator = "R1"; Footprint = "RS 1/4W"; UniqueID = "\DUAFRHRP"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "BOM名称"; Value = "色环电阻"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "学习资源"; Value = "www.ooocke.com"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "版权归属"; Value = "源创客"; VariantName = "[No Variations]"
+Added Component: Designator=P11(COM2-2.54)
+Add component. Clean all parameters for all variants
+Added Component: Designator=P12(COM3-2.54)
+Add component. Clean all parameters for all variants
+Added Component: Designator=P13(HDR1X4)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=P11-1
+Added Pin To Net: NetName=NetD1_1 Pin=P11-2
+Added Pin To Net: NetName=VCC Pin=P12-1
+Added Pin To Net: NetName=GND Pin=P12-2
+Added Pin To Net: NetName=GND Pin=P13-1
+Added Pin To Net: NetName=VCC Pin=P13-4
+Added Pin To Net: NetName=OUT Pin=P12-3
+Added Pin To Net: NetName=OUT Pin=U1-12
+Added Net: Name=OUT
+Added Pin To Net: NetName=RXD Pin=P1-3
+Added Pin To Net: NetName=RXD Pin=P13-3
+Added Pin To Net: NetName=RXD Pin=U1-10
+Added Net: Name=RXD
+Added Pin To Net: NetName=TXD Pin=P1-2
+Added Pin To Net: NetName=TXD Pin=P13-2
+Added Pin To Net: NetName=TXD Pin=U1-11
+Added Net: Name=TXD
+Added Member To Class: ClassName=coursedesign Member=Component P11 POWER
+Added Member To Class: ClassName=coursedesign Member=Component P12 COM3-2.54
+Added Member To Class: ClassName=coursedesign Member=Component P13 XZ
+Added Room: Name=coursedesign
