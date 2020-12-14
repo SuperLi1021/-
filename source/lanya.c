@@ -148,10 +148,11 @@ uart_send_2();
 	shuju=recv_data[1]*100+recv_data[2]*10+recv_data[3];
 	if(recv_data[0]==10) gaowen=shuju;
 	if(recv_data[0]==11) diwen=shuju;
-	if(recv_data[0]==12) zkb=shuju;
+	if(recv_data[0]==12) {zkbb=1;zkb=shuju;}
 	if(recv_data[0]==13) pl=shuju;
-	if(recv_data[0]==14)	djb=1;
-	if(recv_data[0]==15) djb=0;
+	if(recv_data[0]==14)	{djbb=1;djb=1;}
+	if(recv_data[0]==15) {djbb=1;djb=0;}
+	if(recv_data[0]==9) if(shuju==999){djbb=0;zkbb=0;}
 
 
 	

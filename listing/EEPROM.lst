@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.0.0   EEPROM                                                            12/13/2020 01:17:49 PAGE 1   
+C51 COMPILER V9.60.0.0   EEPROM                                                            12/14/2020 14:55:07 PAGE 1   
 
 
 C51 COMPILER V9.60.0.0, COMPILATION OF MODULE EEPROM
@@ -62,7 +62,7 @@ line level    source
   52   1         ISP_ADDRL = (unsigned char)(byte_addr & 0x00ff);   //送地址低字节
   53   1         ISP_IAP_Enable();                   //打开ISP/IAP功能
   54   1           ISP_CMD  = ISP_CMD & 0xf8;         //清除ISP_CMD寄存器低3位
-C51 COMPILER V9.60.0.0   EEPROM                                                            12/13/2020 01:17:49 PAGE 2   
+C51 COMPILER V9.60.0.0   EEPROM                                                            12/14/2020 14:55:07 PAGE 2   
 
   55   1         ISP_CMD  = ISP_CMD | PrgCommand;   //写入写数据命令 
   56   1         ISP_DATA = Orig_data;      //写入数据到ISP_DATA寄存器

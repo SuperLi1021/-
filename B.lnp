@@ -1,8 +1,0 @@
-"..\STARTUP.obj",
-"..\main.obj",
-"..\Bluetooth.obj",
-"..\display.obj",
-"..\ds18b20.obj",
-"..\anjian.obj" 
-TO "..\B" 
-PRINT("..\B.m51") RAMSIZE(256) 

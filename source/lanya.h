@@ -5,7 +5,7 @@
 #define uint unsigned int
 extern unsigned int pl,wendui,wenduo;
 
-extern uchar djb,diwen,gaowen,zkb;
+extern uchar djb,diwen,gaowen,zkb,zkbb,djbb;
 
 
 
